@@ -18,6 +18,10 @@ import librosa
 import python_speech_features as psf
 import os
 
+# 指定GPU
+os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"]="1"
+
 # batchSize = 1
 filePath = "aishell/dev"
 nClass = len(os.listdir(filePath))
