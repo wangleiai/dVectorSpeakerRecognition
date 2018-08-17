@@ -172,4 +172,3 @@ with tf.Session() as sess:
                })
 
         # sess.run(correctPrediction, feed_dict={})
-

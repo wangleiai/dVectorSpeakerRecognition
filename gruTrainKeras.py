@@ -175,14 +175,16 @@ if __name__ =="__main__":
     model.compile(loss='categorical_crossentropy',
                   optimizer=sgd, metrics=['accuracy'])
 
-    model.fit_generator(getBW(batchSize, sampleRate=16000),steps_per_epoch = int(len(wavPath)/batchSize), epochs=100,
+    model.fit_generator(getBW(batchSize, sampleRate=16000),steps_per_epoch = int(len(wavPath)/batchSize), epochs=1500,
                         callbacks=[
                             # 每次训练保存一次模型
-                            ModelCheckpoint("gru1.h5", monitor='loss', verbose=1, save_best_only=False, mode='min'),
+                            ModelCheckpoint("gru1.h5", monitor='acc', verbose=1, save_best_only=False, mode='max'),
                             # 当检测指标不变的时候，学习率lr = lr *0.1x
-                            keras.callbacks.ReduceLROnPlateau(monitor='train_loss', factor=0.1, patience=10,
-                                                              verbose=0, mode='auto', epsilon=0.0001, cooldown=0,
-                                                              min_lr=0)
+                            keras.callbacks.ReduceLROnPlateau(monitor='loss', factor=0.1, patience=10,
+                                                              verbose=0, mode='min', epsilon=0.0001, cooldown=0,
+                                                              min_lr=0),
+                            keras.callbacks.EarlyStopping(monitor='loss', patience=50, verbose=2)
+
                         ]
                         )
     layerName = "dense1"
