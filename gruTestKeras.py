@@ -7,7 +7,8 @@ import os
 import os.path
 import librosa
 from keras.models import load_model
-
+os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"]="1"
 sr = 16000
 def getEnroll(filePath, enrNum=20,valNum=80):
     """

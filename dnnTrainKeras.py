@@ -6,6 +6,8 @@ import librosa
 import librosa.display
 import os
 import os.path
+os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"]="1"
 
 filePath = "aishell/test"
 nClass = len(os.listdir(filePath))

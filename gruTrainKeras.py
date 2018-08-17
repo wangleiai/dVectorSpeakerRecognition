@@ -22,8 +22,7 @@ import os
 os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"]="1"
 
-# batchSize = 1
-filePath = "aishell/dev"
+filePath = "../aishell/train"
 nClass = len(os.listdir(filePath))
 
 
