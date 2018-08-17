@@ -185,10 +185,9 @@ if __name__ =="__main__":
                                                               min_lr=0)
                         ]
                         )
-    # model.save("gru2.h5")
-    # layerName = "dense1"
-    # targetModel = Model(inputs=model.input, outputs=model.get_layer(layerName).output)
-    # targetModel.save("gru3.h5")
+    layerName = "dense1"
+    targetModel = Model(inputs=model.input, outputs=model.get_layer(layerName).output)
+    targetModel.save("gru3.h5")
 
 
 #
