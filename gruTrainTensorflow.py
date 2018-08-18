@@ -113,9 +113,11 @@ lr = 0.0001
 # 卷积层
 conv1 = tf.nn.conv2d(xInput,
                      filter=tf.Variable(tf.truncated_normal([kernelSize[0], kernelSize[1], kernelSize[2], kernelSize[3]], stddev=0.5)),
-                     strides=strideSize, padding="SAME")
+                     strides=strideSize, padding="SAME",
+                     )
 pool1 = tf.nn.max_pool(conv1, ksize=poolSize, strides=strideSize, padding="SAME" )
 permute = tf.keras.backend.permute_dimensions(pool1, (0, 2, 1, 3))
+#交换维度
 permute = tf.reshape(permute, shape=(permute.shape[0], permute.shape[1], permute.shape[2]*permute.shape[3]))
 # GRU
 gruCell = tf.contrib.rnn.GRUCell(num_units=1024, name="gru1")

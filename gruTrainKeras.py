@@ -148,9 +148,9 @@ if __name__ == "__main__":
     model.add(TimeDistributed(Flatten(), name='timedistrib'))
 
     # 三层GRU
-    model.add(GRU(units=1024, return_sequences=True, name="gru1", kernel_regularizer=keras.regularizers.l2(), dropout=0.5))
-    model.add(GRU(units=1024, return_sequences=True, name="gru2", kernel_regularizer=keras.regularizers.l2(), dropout=0.5))
-    model.add(GRU(units=1024, return_sequences=True, name="gru3", kernel_regularizer=keras.regularizers.l2(), dropout=0.5))
+    model.add(GRU(units=1024, return_sequences=True, name="gru1", kernel_regularizer=keras.regularizers.l2()))
+    model.add(GRU(units=1024, return_sequences=True, name="gru2", kernel_regularizer=keras.regularizers.l2()))
+    model.add(GRU(units=1024, return_sequences=True, name="gru3", kernel_regularizer=keras.regularizers.l2()))
 
 
     # temporal average
