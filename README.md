@@ -17,5 +17,5 @@ kerasSoftmax/gruTrain实现的是https://arxiv.org/pdf/1705.02304.pdf, 实现了
 实现思路：
   论文中介绍res-cnn的输入和cov-gru的输入一样，由于自己没看懂怎么输入就找了个博客（https://blog.csdn.net/lauyeed/article/details/79936632）,  博客很详细的介绍了输入特征是什么样子的。
   
-tfTriplet/ ：使用了triplet loss函数，用dev做了下测试，确实有效果，因为不太需要高的精确率就没有再尝试。
+tfTriplet/ ：使用了triplet loss函数，s只是跑通了代码，因为不太需要高的精确率就没有再尝试。
 
