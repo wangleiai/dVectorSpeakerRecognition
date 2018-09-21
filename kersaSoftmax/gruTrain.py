@@ -20,12 +20,12 @@ import python_speech_features as psf
 import os
 import tensorflow as tf
 
-# æŒ‡å®šGPU
+# Ö¸¶¨GPU
 os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"]="1"
-# æŒ‡å®šå ç”¨å†…å­˜å¤§å°
+# Ö¸¶¨Õ¼ÓÃÄÚ´æ´óĞ¡
 config = tf.ConfigProto()
-config.gpu_options.per_process_gpu_memory_fraction = 0.43  # å ç”¨GPU45%çš„æ˜¾å­˜
+config.gpu_options.per_process_gpu_memory_fraction = 0.43  # Õ¼ÓÃGPU43%µÄÏÔ´æ
 K.set_session(tf.Session(config=config))
 
 
@@ -59,7 +59,7 @@ def getwavPathAndwavLabel(filePath):
 wavPath, wavLabel, testPath, testLabel = getwavPathAndwavLabel(filePath)
 print("trainWavPath: ", len(wavPath))
 print("testWavPath: ", len(testPath))
-# '''æŒ‰ç…§ç›¸åŒçš„é¡ºåºæ‰“ä¹±æ–‡ä»¶'''
+# '''°´ÕÕÏàÍ¬µÄË³Ğò´òÂÒÎÄ¼ş'''
 # cc = list(zip(wavPath, wavLabel))
 # random.shuffle(cc)
 # wavPath[:], wavLabel[:] = zip(*cc)
@@ -68,15 +68,15 @@ print("testWavPath: ", len(testPath))
 
 def getBW(batchSize=2, second=3, sampleRate=16000):
     """
-    :param batchSize: ä¸€ä¸ªæ‰¹æ¬¡å¤§å°
-    :param second: éŸ³é¢‘çš„é•¿åº¦ï¼Œé»˜è®¤3.5s,å•ä½ä¸ºsec
-    :param sampleRate: é‡‡æ ·ç‡
-    :return:ç‰¹å¾çŸ©é˜µ  å’Œ æ ‡ç­¾
+    :param batchSize: Ò»¸öÅú´Î´óĞ¡
+    :param second: ÒôÆµµÄ³¤¶È£¬Ä¬ÈÏ3.5s,µ¥Î»Îªsec
+    :param sampleRate: ²ÉÑùÂÊ
+    :return:ÌØÕ÷¾ØÕó  ºÍ ±êÇ©
     """
     count = 0
     while True:
 
-        '''æŒ‰ç…§ç›¸åŒçš„é¡ºåºæ‰“ä¹±æ–‡ä»¶'''
+        '''°´ÕÕÏàÍ¬µÄË³Ğò´òÂÒÎÄ¼ş'''
         cc = list(zip(wavPath, wavLabel))
         random.shuffle(cc)
         wavPath[:], wavLabel[:] = zip(*cc)
@@ -102,17 +102,17 @@ def getBW(batchSize=2, second=3, sampleRate=16000):
 
             else:
                 signal, srate = librosa.load(wav, sr=sampleRate)
-                # ä¸ç¬¦åˆæ¡ä»¶
+                # ²»·ûºÏÌõ¼ş
                 if len(signal) < 3 * 16000:
                     continue
-                # å½’ä¸€åŒ–
+                # ¹éÒ»»¯
                 signal = signal / (max(np.abs(np.min(signal)), np.max(signal)))
 
-                # åˆ¤æ–­æ˜¯å¦è¶…è¿‡ä¸‰ç§’ï¼Œ
-                # è¶…è¿‡ä¸‰ç§’åˆ™æˆªæ–­
+                # ÅĞ¶ÏÊÇ·ñ³¬¹ıÈıÃë£¬
+                # ³¬¹ıÈıÃëÔò½Ø¶Ï
                 if len(signal) >= 3 * srate:
                     signal = signal[0:int(3 * srate)]
-                # å°‘äºä¸‰ç§’åˆ™å¡«å……0
+                # ÉÙÓÚÈıÃëÔòÌî³ä0
                 else:
                     signal = signal.tolist()
                     for j in range(3 * srate - len(signal)):
@@ -135,22 +135,22 @@ def getBW(batchSize=2, second=3, sampleRate=16000):
 
 def getTestBW(batchSize=2, second=3, sampleRate=16000):
     """
-    :param batchSize: ä¸€ä¸ªæ‰¹æ¬¡å¤§å°
-    :param second: éŸ³é¢‘çš„é•¿åº¦ï¼Œé»˜è®¤3.5s,å•ä½ä¸ºsec
-    :param sampleRate: é‡‡æ ·ç‡
-    :return:ç‰¹å¾çŸ©é˜µ  å’Œ æ ‡ç­¾
+    :param batchSize: Ò»¸öÅú´Î´óĞ¡
+    :param second: ÒôÆµµÄ³¤¶È£¬Ä¬ÈÏ3.5s,µ¥Î»Îªsec
+    :param sampleRate: ²ÉÑùÂÊ
+    :return:ÌØÕ÷¾ØÕó  ºÍ ±êÇ©
     """
     count = 0
     while True:
 
-        '''æŒ‰ç…§ç›¸åŒçš„é¡ºåºæ‰“ä¹±æ–‡ä»¶'''
+        '''°´ÕÕÏàÍ¬µÄË³Ğò´òÂÒÎÄ¼ş'''
         cc = list(zip(testPath, testLabel))
         random.shuffle(cc)
         testPath[:], testLabel[:] = zip(*cc)
         x = []
         y = []
         count = 0
-        for index, wav in enumerate(wavPath):
+        for index, wav in enumerate(testPath):
             if count == batchSize:
                 X = x
                 Y = y
@@ -171,14 +171,14 @@ def getTestBW(batchSize=2, second=3, sampleRate=16000):
                 signal, srate = librosa.load(wav, sr=sampleRate)
                 if len(signal) <3*16000:
                     continue
-                # å½’ä¸€åŒ–
+                # ¹éÒ»»¯
                 signal = signal / (max(np.abs(np.min(signal)), np.max(signal)))
 
-                # åˆ¤æ–­æ˜¯å¦è¶…è¿‡ä¸‰ç§’ï¼Œ
-                # è¶…è¿‡ä¸‰ç§’åˆ™æˆªæ–­
+                # ÅĞ¶ÏÊÇ·ñ³¬¹ıÈıÃë£¬
+                # ³¬¹ıÈıÃëÔò½Ø¶Ï
                 if len(signal) >= 3 * srate:
                     signal = signal[0:int(3 * srate)]
-                # å°‘äºä¸‰ç§’åˆ™å¡«å……0
+                # ÉÙÓÚÈıÃëÔòÌî³ä0
                 else:
                     signal = signal.tolist()
                     for j in range(3 * srate - len(signal)):
@@ -198,20 +198,20 @@ def getTestBW(batchSize=2, second=3, sampleRate=16000):
                 feat2 = feat2.T[:, :, np.newaxis]
                 fBank = np.concatenate((feat, feat1, feat2), axis=2)
                 x.append(fBank)
-                y.append(wavLabel[index])
+                y.append(testLabel[index])
                 count +=1
 
 
 if __name__ =="__main__":
 
     batchSize = 32
-    # å·ç§¯æ ¸ä¸ªæ•°
+    # ¾í»ıºË¸öÊı
     nFilter = 64
-    # æ± åŒ–å±‚çš„å¤§å°
+    # ³Ø»¯²ãµÄ´óĞ¡
     poolSize = [2, 2]
-    # æ± åŒ–å±‚æ­¥é•¿
+    # ³Ø»¯²ã²½³¤
     strideSize = [2, 2]
-    # å·ç§¯æ ¸çš„å¤§å°
+    # ¾í»ıºËµÄ´óĞ¡
     kernelSize = [5, 5]
     model = Sequential()
     model.add(Convolution2D(nFilter, (kernelSize[0], kernelSize[1]),
@@ -221,12 +221,12 @@ if __name__ =="__main__":
                             kernel_regularizer=keras.regularizers.l2()))
     # model.add(MaxPooling2D(pool_size=(poolSize[0], poolSize[1]), strides=(strideSize[0], strideSize[1]), padding="same", name="pool1"))
 
-    # å°†è¾“å…¥çš„ç»´åº¦æŒ‰ç…§ç»™å®šæ¨¡å¼è¿›è¡Œé‡æ’
+    # ½«ÊäÈëµÄÎ¬¶È°´ÕÕ¸ø¶¨Ä£Ê½½øĞĞÖØÅÅ
     model.add(Permute((2,1,3),name='permute'))
-    # è¯¥åŒ…è£…å™¨å¯ä»¥æŠŠä¸€ä¸ªå±‚åº”ç”¨åˆ°è¾“å…¥çš„æ¯ä¸€ä¸ªæ—¶é—´æ­¥ä¸Š,GRUéœ€è¦
+    # ¸Ã°ü×°Æ÷¿ÉÒÔ°ÑÒ»¸ö²ãÓ¦ÓÃµ½ÊäÈëµÄÃ¿Ò»¸öÊ±¼ä²½ÉÏ,GRUĞèÒª
     model.add(TimeDistributed(Flatten(),name='timedistrib'))
 
-    # ä¸‰å±‚GRU
+    # Èı²ãGRU
     model.add(GRU(units=1024, return_sequences=True, name="gru1"))
     model.add(GRU(units=1024, return_sequences=True, name="gru2"))
     model.add(GRU(units=1024, return_sequences=True, name="gru3"))
@@ -256,10 +256,10 @@ if __name__ =="__main__":
                         validation_data=getTestBW(100),
                         validation_steps=5,
                         callbacks=[
-                            # æ¯æ¬¡è®­ç»ƒä¿å­˜ä¸€æ¬¡æ¨¡å‹
+                            # Ã¿´ÎÑµÁ·±£´æÒ»´ÎÄ£ĞÍ
                             ModelCheckpoint("{epoch:02d}e-val_acc_{val_acc:.2f}.hdf5",
                                             monitor='loss', verbose=1, save_best_only=False, mode='min', period=1),
-                            # å½“æ£€æµ‹æŒ‡æ ‡ä¸å˜çš„æ—¶å€™ï¼Œå­¦ä¹ ç‡lr = lr *0.1
+                            # µ±¼ì²âÖ¸±ê²»±äµÄÊ±ºò£¬Ñ§Ï°ÂÊlr = lr *0.1
                             keras.callbacks.ReduceLROnPlateau(monitor='loss', factor=0.1, patience=10,
                                                               verbose=0, mode='min', epsilon=0.0001, cooldown=0,
                                                               min_lr=0),
