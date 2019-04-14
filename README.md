@@ -19,4 +19,4 @@ kerasSoftmax/gruTrain实现的是https://arxiv.org/pdf/1705.02304.pdf, 实现了
   
 tfTriplet/ ：使用了triplet loss函数，s只是跑通了代码，因为不太需要高的精确率就没有再尝试。
 
-联系方式：wanglei@imudges.com
+联系方式：1839522753@qq.com
